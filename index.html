@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francuski</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .info{
+            margin-top: 100px;
+            height: 130px;
+            text-align: center;
+            font-size: 100px;
+            font-weight: 900;
+        }
+
+        input{
+            height: 150px;
+            text-align: center;
+            font-size: 64px;
+            font-weight: 900; 
+            transition: 0.5s;
+            border: 3px solid black;
+            border-radius: 10px;
+        }
+
+        input:focus{
+            border-radius: 50px;
+        }
+
+        button{
+            height: 100px;
+            font-size: 64px;
+            font-weight: 900; 
+            border-radius: 50px;
+            /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
+            user-select: none;
+            border: 0;
+            background-color: white;
+        }
+
+        @media screen and (max-width: 700px) {
+            .info{margin-top: 50px; font-size: 64px;margin-bottom: 10px;}
+            input{height: 100px;font-size: 48px;}
+
+        }
+    </style>
+</head>
+<body>
+<div class="info"></div>
+<input type="text" autofocus>
+<button>hint</button>
+
+
+<script>
+let words = {
+	"une bosse":"garb",
+	"l'épaule": "bark",
+	"le coude": "łokieć",
+	"la nuque": "kark",
+	"le poignet": "nadgarstek",
+	"la main": "dłoń",
+	"les doigts": "palce",
+	"la jambe": "noga",
+	"le pied": "stopa",
+	"les orteils": "palce u nóg",
+	"la taille": "talia",
+	"l'avant-bras": "przedramię",
+	"les poils": "włosy",
+	"le ventre": "brzuch",
+	"la poitrine": "klatka piersiowa",
+	"le cou": "szyja",
+	"la tête": "głowa",
+	"le visage": "twarz",
+	"les sourcils": "brwi",
+	"le front": "czoło",
+	"les cheveux": "włosy",
+	"les cils": "rzęsy",
+	"un œil": "oko",
+	"les oreilles": "uszy",
+	"les dents": "zęby",
+	"les lèvres": "wargi",
+	"la bouche": "usta",
+	"le menton": "broda",
+	"les yeux": "oczy",
+	"la joue": "policzek",
+	"le nez": "nos",
+	"rond": "okrągły",
+	"rectangulaire": "prostokątna",
+	"droit": "prosty",
+	"tordu": "kręty",
+	"large": "szeroki",
+	"étroit": "wąski",
+	"musclé": "umięśniony",
+	"mince": "szczupły",
+	"fort": "silny",
+	"faible": "słaby"
+}
+
+let input = document.querySelector("input")
+let info = document.querySelector(".info")
+let hint = document.querySelector("button")
+let answer = ""
+let key
+
+function random(obj) {
+  const keys = Object.keys(obj);
+
+  const randomKey = keys[Math.floor(Math.random() * keys.length)];
+  const randomValue = obj[randomKey];
+
+  return [randomKey, randomValue];
+}
+
+function next(){
+    input.value = ""
+
+    key = random(words);
+    info.textContent = key[0]
+    answer = key[1]
+}
+
+
+input.addEventListener("input", ev => {
+    if(input.value == answer) next()
+})
+
+hint.addEventListener("click", ev => alert(answer))
+
+next()
+
+
+
+</script>
+</body>
+</html>
