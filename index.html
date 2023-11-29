@@ -132,10 +132,13 @@ input.addEventListener("input", ev => {
 })
 
 hint.addEventListener("click", ev => alert(answer))
-document.addEventListener("keypress", ev => {
-    if(!ev.ctrlKey || !ev.code === "Space") return
-    alert(answer)
-})
+document.addEventListener('keydown', ev => {
+ if (!ev.ctrlKey) return;
+
+ if (ev.code === 'Space') {
+  alert(answer)
+ }
+});
 
 next()
 
