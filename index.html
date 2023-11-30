@@ -19,7 +19,7 @@
 
         body *{
             background-color: #5a189a;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: "Montserrat";
             color: white;
         }
 
@@ -150,12 +150,17 @@ input.addEventListener("input", ev => {
     if(input.value.toLowerCase() == answer.toLowerCase()) next()
 })
 
-hint.addEventListener("click", ev => alert(answer))
+hint.addEventListener("click", ev => {
+  alert(answer)
+  input.focus()
+})
 document.addEventListener('keydown', ev => {
  if (!ev.ctrlKey) return;
 
  if (ev.code === 'Space') {
   alert(answer)
+  input.focus()
+
  }
 });
 
