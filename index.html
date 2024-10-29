@@ -5,159 +5,190 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Francuski</title>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-        body{
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap');
+
+        /* Catppuccin Mocha Colors */
+        :root {
+            --base: #1e1e2e;
+            --text: #cdd6f4;
+            --subtext: #bac2de;
+            --accent: #cba6f7;
+            --highlight: #cba6f7;
+            --button-bg: #74c7ec;
+            --button-hover: #89dceb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #5a189a;
-            max-height: 100svh;
-        }
-
-        body *{
-            background-color: #5a189a;
-            font-family: "Poppins", sans-serif;
-            font-weight: 600;
-            font-style: normal;
-            color: white;
-        }
-
-        .info{
-            margin-top: 100px;
-            height: 130px;
+            background-color: var(--base);
+            min-height: 100vh; /* Ensures full height on mobile */
+            color: var(--text);
             text-align: center;
-            font-size: 80px;
-            margin-bottom: 10px;
+            padding: 20px;
+            padding-bottom: 20vh; /* Space for the mobile keyboard */
         }
 
-        input{
-            height: 100px;
-            width: 500px;
+        .info {
+            margin-top: 20px;
+            font-size: clamp(24px, 6vw, 50px); /* Responsive font scaling */
+            font-weight: 700;
+            color: var(--highlight);
+            margin-bottom: 20px;
+            max-width: 90vw;
+            overflow-wrap: break-word;
+        }
+
+        /* Larger input field and button for better visibility on desktop */
+        input {
+            height: 70px;
+            width: 80vw;
+            max-width: 500px;
+            font-size: 1.75rem;
+            font-weight: 700;
             text-align: center;
-            font-size: 64px;
-            font-weight: 700; 
-            transition: 0.5s;
-            background-color: #7b2cbf;
+            background-color: var(--subtext);
+            color: #45475a;
             border: none;
-            box-shadow: none;
-            overflow: hidden;
-            border-bottom: 5px black solid;
-        }
-        input:focus{
-          border:none;
-          outline: none;
-          border-bottom: 5px #9d4edd solid;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 20px;
+            transition: 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        button{
-            height: 100px;
-            font-size: 64px;
-            font-weight: 900; 
-            border-radius: 50px;
-            user-select: none;
-            border: 0;
+        input:focus {
+            outline: none;
+            background-color: var(--highlight); /* Keeps focus effect visible */
+            color: #45475a;
         }
-        
-        
 
-  
 
-        @media screen and (max-width: 700px) {
-            .info{margin-top: 50px; font-size: 64px;margin-bottom: 10px;}
-            input{height: 100px;font-size: 48px; width: 80vw;}
+        button {
+            height: 70px;
+            font-size: 1.75rem;
+            font-weight: 900;
+            color: var(--base);
+            background-color: var(--button-bg);
+            border: none;
+            border-radius: 8px;
+            padding: 0 30px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
 
+        button:hover {
+            background-color: var(--button-hover);
+        }
+
+        @media screen and (max-width: 500px) {
+            /* Adjust for smaller screens to avoid keyboard overlap */
+            input {
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            button {
+                height: 60px;
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-<div class="info"></div>
-<input type="text" autofocus autocomplete="off">
-<button>hint</button>
+    <div class="info"></div>
+    <input type="text" autofocus autocomplete="off" placeholder="Enter translation...">
+    <button>Hint</button>
 
+    <script>
+        let words = {
+            "samolot": "l'avion",
+            "samochod": "la voiture",
+            "lodz": "le bateau",
+            "helokopter": "l'helicoptere",
+            "metro": "le metro",
+            "ciezarowka": "le camion",
+            "pociag": "le train",
+            "autobus": "l'autobus",
+            "prom": "le ferry",
+            "motorowka": "le bateau a moteur",
+            "rower": "le velo",
+            "tramwaj": "le tramway",
+            "motor": "la moto",
+            "skuter": "le scooter",
+            "taksowka": "le taxi",
+            "ekologiczny": "ecologique",
+            "zanieczyszczajacy": "pollutant",
+            "niebezpieczny": "dangereux",
+            "bezpieczny": "sur",
+            "wygodny": "commode",
+            "niewygodny": "incommode",
+            "szybki": "rapide",
+            "wolny": "lent",
+            "drogi": "cher",
+            "tani": "bon marche",
+            "glosny": "bruyant",
+            "cichy": "silencieux",
+            "Placisz karta czy gotowka?": "vous payez en especes ou par carte",
+            "o której przyjeżdża pociąg?": "a quelle heure arrive le train",
+            "czy jest zniżka dla studentów?": "il y a des reductions pour les etudiants",
+            "czy chce pan miejsce przy oknie czy przy korytarzu": "vous voulez une place pres de la fenetre ou cote couloir",
+            "co sobie pan życzy": "que desirez-vous",
+            "z którego peronu odjeżdża pociąg": "de quel quai part le train"
+        };
 
-<script>
-let words = {
-    "samolot":"l'avion",   
-    "samochod":"la voiture",   
-    "lodz":"le bateau",   
-    "helokopter":"l'helicoptere",   
-    "metro":"le metro",   
-    "ciezarowka":"le camion",   
-    "pociag":"le train",   
-    "autobus":"l'autobus",   
-    "prom":"le ferry",   
-    "motorowka":"le bateau a moteur",   
-    "rower":"le velo",   
-    "tramwaj":"le tramway",   
-    "motor":"la moto",   
-    "skuter":"le scooter",   
-    "taksowka":"le taxi",   
-    "ekologiczny":"ecologique",
-    "zaniczyszczajacy":"pollutant",
-    "niebezpieczny":"dangereux",
-    "bezpieczny":"sur",
-    "wygodny":"commode",
-    "niewygodny":"incommode",
-    "szybki":"rapide",
-    "wolny":"lent",
-    "drogi":"cher",
-    "tani":"bon marche",
-    "glosny":"bruyant",
-    "cichy":"silencieux",
+        let input = document.querySelector("input");
+        let info = document.querySelector(".info");
+        let hint = document.querySelector("button");
+        let answer = "";
+        let key;
 
-}
+        function random(obj) {
+            const keys = Object.keys(obj);
+            const randomKey = keys[Math.floor(Math.random() * keys.length)];
+            const randomValue = obj[randomKey];
+            return [randomKey, randomValue];
+        }
 
-let input = document.querySelector("input")
-let info = document.querySelector(".info")
-let hint = document.querySelector("button")
-let answer = ""
-let key
+        function next() {
+            input.value = "";
+            key = random(words);
+            info.textContent = key[0];
+            answer = key[1];
+        }
 
-function random(obj) {
-  const keys = Object.keys(obj);
+        input.addEventListener("input", ev => {
+            if (input.value.toLowerCase() == answer.toLowerCase()) next();
+        });
 
-  const randomKey = keys[Math.floor(Math.random() * keys.length)];
-  const randomValue = obj[randomKey];
+        hint.addEventListener("click", ev => {
+            alert(answer);
+            input.focus();
+        });
 
-  return [randomKey, randomValue];
-}
+        document.addEventListener('keydown', ev => {
+            if (!ev.ctrlKey) return;
+            if (ev.code === 'Space') {
+                alert(answer);
+                input.focus();
+            }
+        });
 
-function next(){
-    input.value = ""
-
-    key = random(words);
-    info.textContent = key[0]
-    answer = key[1]
-}
-
-
-input.addEventListener("input", ev => {
-    if(input.value.toLowerCase() == answer.toLowerCase()) next()
-})
-
-hint.addEventListener("click", ev => {
-  alert(answer)
-  input.focus()
-})
-document.addEventListener('keydown', ev => {
- if (!ev.ctrlKey) return;
-
- if (ev.code === 'Space') {
-  alert(answer)
-  input.focus()
-
- }
-});
-
-next()
-
-
-
-</script>
+        next();
+    </script>
 </body>
 </html>
