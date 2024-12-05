@@ -25,11 +25,15 @@
 
 
 .title{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
     font-size: 48px;
     line-height: 64px;
     height: fit-content;
-    width: fit-content;
     margin: 20px;
+    text-align: center;
 }
 
 .close{
@@ -172,3 +176,33 @@ input[type=checkbox]:not(.switch):checked {
     --r: 43deg;
 }
 
+// scrollbar
+
+.modal {
+scrollbar-width: medium;
+scrollbar-color: #333 #333;
+}
+
+.modal::-webkit-scrollbar {
+width: 12px; 
+height: 12px; 
+}
+
+.modal::-webkit-scrollbar-track {
+background: #333; 
+border-radius: 6px; 
+}
+
+.modal::-webkit-scrollbar-thumb {
+background: #333; 
+border-radius: 6px; 
+border: 3px solid #333; 
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+background: #333; 
+}
+
+.modal::-webkit-scrollbar-corner {
+background: #333;
+}
