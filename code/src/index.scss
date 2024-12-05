@@ -148,7 +148,7 @@ input[type='text']:focus {
   max-width: 700px;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 .answer{
   font-size: clamp(24px, 6vw, 50px);;

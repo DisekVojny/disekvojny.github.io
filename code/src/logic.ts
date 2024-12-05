@@ -4,7 +4,7 @@ export const words: Words = {
     "samolot": "l'avion",
     "samochod": "la voiture",
     "lodz": "le bateau",
-    "helokopter": "l'helicoptere",
+    "helikopter": "l'helicoptere",
     "metro": "le metro",
     "ciezarowka": "le camion",
     "pociag": "le train",
