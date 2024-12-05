@@ -154,6 +154,11 @@ input[type='text']:focus {
   font-size: clamp(24px, 6vw, 50px);;
 }
 @media screen and (max-width: 550px) {
+  :root, body{
+    height: 100svh;
+    overflow: hidden;
+  }
+
   input[type='text'] {
       height: 60px;
       font-size: 1.5rem;
