@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js"
+import { createSignal, onMount } from "solid-js"
 import styles from "./hint.module.scss"
 import {
     AlertDialog,
@@ -10,6 +10,12 @@ import {
 
 export default function Hint(props: {answer: string}) {
     const [open, setOpen] = createSignal(false)
+
+    onMount(() => {
+        document.addEventListener("keydown", ev => {
+            if(ev.ctrlKey && ev.key == " ") setOpen(true)
+        })
+    })
 
     return (
 
