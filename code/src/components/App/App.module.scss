@@ -1,0 +1,74 @@
+.info {
+    margin-top: 20px;
+    font-size: clamp(24px, 6vw, 50px);
+    font-weight: 700;
+    color: #cba6f7;
+    margin-bottom: 20px;
+    max-width: 90vw;
+    overflow-wrap: break-word;
+}
+
+input[type='text'] {
+    height: 70px;
+    width: 78%;
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-align: center;
+    background-color: #bac2de;
+    color: #45475a;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+    transition: 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+input[type='text']:focus {
+  outline: none;
+  background-color: #cba6f7;
+  color: #45475a;
+
+  &::placeholder{
+    color: #1e1e2e;
+    opacity: 0.5;
+  }
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.buttons{
+    max-width: 700px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.answer{
+    font-size: clamp(24px, 6vw, 50px);;
+}
+
+@media screen and (max-width: 550px) {
+    :root, body{
+        height: 100svh;
+        overflow: hidden;
+    }
+
+    input[type='text'] {
+        height: 60px;
+        font-size: 1.5rem;
+        width: 100%;
+
+    }
+    .hintButton {
+        height: 60px;
+        font-size: 1.5rem;
+        width: 100%;
+
+    }
+    .buttons{
+        flex-direction: column;
+    }
+}

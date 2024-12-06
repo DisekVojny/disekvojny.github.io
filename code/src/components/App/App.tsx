@@ -1,11 +1,11 @@
 import { createSignal } from 'solid-js';
-import './App.module.scss';
+import styles from './App.module.scss';
 import { getPair } from '../../logic';
 import Hint from '../Hint/Hint';
 import Options from '../Options/Options';
 
 
-function App() {
+export default function App() {
   const [qa, setQA] = createSignal<[string, string]>(getPair());
   let inputRef: HTMLInputElement | undefined;
 
@@ -19,10 +19,10 @@ function App() {
   }
 
   return (
-    <div class="container">
+    <div class={styles.container}>
       <Options fn={setAnswer}/>
-      <div class="info">{qa()[0]}</div>
-      <div class="buttons">
+      <div class={styles.info}>{qa()[0]}</div>
+      <div class={styles.buttons}>
         <input
           type="text"
           placeholder="Answer..."
@@ -34,5 +34,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

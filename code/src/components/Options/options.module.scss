@@ -12,52 +12,6 @@
     line-height: 30px;
 }
 
-.modal{
-    height: 80vh;
-    border-radius: 25px;
-    overflow-y: scroll;
-    max-width: 700px;
-    padding: 20px;
-    width: calc(100% - 48px) !important;
-
-}
-
-
-
-.title{
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    font-size: 48px;
-    line-height: 64px;
-    height: fit-content;
-    margin: 20px;
-    text-align: center;
-}
-
-.close{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: red;
-    font-size: 16px;
-    padding: 10px;
-    border-radius: 10px;
-    transition: 0.3s ease-in-out;
-
-    &:hover{
-        background-color: rgba(255, 50, 50, 0.3);
-    }
-}
-
-.buttonRow{
-    display: flex;
-    flex: 1 0 40%;
-    width: 100%;
-    justify-content: right;
-}
-
 
 .settings{
     position: absolute;
