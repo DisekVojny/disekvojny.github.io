@@ -1,39 +1,89 @@
 type Words = Record<string, string>;
 
 export const words: Words = {
-    "samolot": "l'avion",
-    "samochod": "la voiture",
-    "lodz": "le bateau",
-    "helikopter": "l'helicoptere",
-    "metro": "le metro",
-    "ciezarowka": "le camion",
-    "pociag": "le train",
-    "autobus": "l'autobus",
-    "prom": "le ferry",
-    "motorowka": "le bateau a moteur",
-    "rower": "le velo",
-    "tramwaj": "le tramway",
-    "motor": "la moto",
-    "skuter": "le scooter",
-    "taksowka": "le taxi",
-    "ekologiczny": "ecologique",
-    "zanieczyszczajacy": "pollutant",
-    "niebezpieczny": "dangereux",
-    "bezpieczny": "sur",
-    "wygodny": "commode",
-    "niewygodny": "incommode",
-    "szybki": "rapide",
-    "wolny": "lent",
-    "drogi": "cher",
-    "tani": "bon marche",
-    "glosny": "bruyant",
-    "cichy": "silencieux",
-    "Placisz karta czy gotowka?": "vous payez en especes ou par carte",
-    "o której przyjeżdża pociąg?": "a quelle heure arrive le train",
-    "czy jest zniżka dla studentów?": "il y a des reductions pour les etudiants",
-    "czy chce pan miejsce przy oknie czy przy korytarzu": "vous voulez une place pres de la fenetre ou cote couloir",
-    "co sobie pan życzy": "que desirez-vous",
-    "z którego peronu odjeżdża pociąg": "de quel quai part le train"
+  "autonomiczny": "autonome",
+  "autonomiczna": "autonome",
+
+  "ambitny": "ambitieux",
+  "ambitna": "ambitieuse",
+
+  "gadatliwy": "bavard",
+  "gadatliwa": "bavarde",
+
+  "kapryśny": "capricieux",
+  "kapryśna": "capricieuse",
+
+  "sumienny": "consciencieux",
+  "sumienna": "consciencieuse",
+
+  "kreatywny": "créatif",
+  "kreatywna": "créative",
+
+  "ciekawski": "curieux",
+  "ciekawska": "curieuse",
+
+  "delikatny": "délicat",
+  "delikatna": "délicate",
+
+  "dyskretny": "discret",
+  "dyskretna": "discrète",
+
+  "dynamiczny": "dynamique",
+  "dynamiczna": "dynamique",
+
+  "skuteczny": "efficace",
+  "skuteczna": "efficace",
+
+  "energiczny": "énergique",
+  "energiczna": "énergique",
+
+  "szczery": "franc",
+  "szczera": "franche",
+
+  "beztroski": "insouciant",
+  "beztroska": "insouciante",
+
+  "niecierpliwy": "impatient",
+  "niecierpliwa": "impatiente",
+
+  "powolny": "lent",
+  "powolna": "lente",
+
+  "nieuczciwy": "malhonnête",
+  "nieuczciwa": "malhonnête",
+
+  "podejrzliwy": "méfiant",
+  "podejrzliwa": "méfiante",
+
+  "skrupulatny": "méticuleux",
+  "skrupulatna": "méticuleuse",
+
+  "zmotywowany": "motivé",
+  "zmotywowana": "motivées",
+
+  "optymistyczny": "optimiste",
+  "optymistyczna": "optimiste",
+
+  "zorganizowany": "organisé",
+  "zorganizowana": "organisée",
+
+  "marudny": "plaintif",
+  "marudna": "plaintive",
+
+  "punktualny": "ponctuel",
+  "punktualna": "ponctuelle",
+
+  "pomocny": "serviable",
+  "pomocna": "serviable",
+
+  "uśmiechnięty": "souriant",
+  "uśmiechnięta": "souriante",
+
+  "nieśmiały": "timide",
+  "nieśmiała": "timide",
+
+  "tolerancyjny": "tolérant",
+  "tolerancyjna": "tolérante"
 };
 
 export let usedWords = {...words}
