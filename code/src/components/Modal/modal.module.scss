@@ -1,0 +1,127 @@
+.container {
+    visibility: hidden;
+    opacity: 0;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(6px);
+    transition: opacity 0.1s ease-in-out, visibility 0.1s;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100svh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal {
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    padding: 2rem;
+    background-color: #1e1e2e;
+    transform: scale(0.7);
+    transition: transform 0.1s ease-in-out, opacity 0.1s ease-in-out;
+    opacity: 0;
+}
+
+.hint.modal{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    height: fit-content;
+    max-width: 32rem;
+
+    .title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 48px;
+        padding: 40px;
+        height: fit-content;
+        line-height: 60px;
+    }
+}
+
+.options.modal{
+    height: 80vh;
+    border-radius: 25px;
+    overflow-y: scroll;
+    max-width: 700px;
+    padding: 20px;
+    width: calc(100% - 48px) !important;
+    
+    .title{
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        font-size: 48px;
+        line-height: 64px;
+        height: fit-content;
+        margin: 20px;
+        text-align: center;
+        font-weight: 600;
+
+    }
+}
+
+.container.active .modal {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.li{
+    display: flex;
+    flex: 1;
+    margin-bottom: 15px;
+    align-items: center;
+    width: fit-content;
+    min-width: fit-content;
+    text-align: left;
+    color: white;
+
+    font-size: 24px;
+    line-height: 30px;
+}
+
+
+.buttonRow{
+    display: flex;
+    width: 100%;
+    justify-content: right;
+}
+
+.close{
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+
+    &:hover{
+        background-color: rgba(255, 50, 50, 0.3);
+    }
+}
