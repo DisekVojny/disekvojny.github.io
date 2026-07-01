@@ -52,6 +52,14 @@
     --accent-hi:  #a6c9ff;
   }
 
+  /* lovejoy + wilbur mode accent = pink */
+  body.mode-both {
+    --accent:     #ea76cb;
+    --accent-dim: rgba(234,118,203,0.12);
+    --accent-mid: rgba(234,118,203,0.25);
+    --accent-hi:  #f0a6db;
+  }
+
   body {
     background: var(--crust);
     color: var(--text);
@@ -620,7 +628,7 @@ const CATALOGUE = {
       "Internet Ruined Me", "Jubilee Line", "La Jolla", "Losing Face",
       "Maybe I Was Boring", "Melatonin 130", "Oh Distant You", "Saline Solution",
       "Since I Saw Vienna", "Soft Boy", "The Median",
-      "Trying Not To Think About It", "Your New Boyfriend", "Your Sister Was Right"
+      "Trying Not To Think About It", "Your New Boyfriend", "Your Sister Was Right", "Mine Yours"
     ]
   }
 };
@@ -880,8 +888,12 @@ function setMode(mode) {
 
   // body class for accent colour
   document.body.classList.remove('mode-wilbur', 'mode-both');
-  if (mode === 'wilbur') document.body.classList.add('mode-wilbur');
-  if (mode === 'both')   document.body.classList.add('mode-wilbur'); // blue for mixed too
+
+  if (mode === 'wilbur') {
+    document.body.classList.add('mode-wilbur');
+  } else if (mode === 'both') {
+    document.body.classList.add('mode-both');
+  }
 
   // update button states
   ['lvjy', 'wilbur', 'both'].forEach(m => {
