@@ -12,7 +12,6 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    /* Catppuccin Mocha */
     --crust:    #11111b;
     --mantle:   #181825;
     --base:     #1e1e2e;
@@ -24,7 +23,6 @@
     --subtext0: #a6adc8;
     --subtext1: #bac2de;
     --text:     #cdd6f4;
-    /* Accents */
     --mauve:    #cba6f7;
     --mauve-dim: rgba(203,166,247,0.12);
     --mauve-mid: rgba(203,166,247,0.25);
@@ -35,8 +33,23 @@
     --green:    #a6e3a1;
     --green-dim: rgba(166,227,161,0.1);
     --peach:    #fab387;
-    /* Layout */
+    --blue:     #89b4fa;
+    --blue-dim: rgba(137,180,250,0.12);
+    --blue-mid: rgba(137,180,250,0.25);
     --radius: 8px;
+    /* per-mode accent — default lovejoy = mauve */
+    --accent:     var(--mauve);
+    --accent-dim: var(--mauve-dim);
+    --accent-mid: var(--mauve-mid);
+    --accent-hi:  var(--pink);
+  }
+
+  /* wilbur mode accent = blue */
+  body.mode-wilbur {
+    --accent:     var(--blue);
+    --accent-dim: var(--blue-dim);
+    --accent-mid: var(--blue-mid);
+    --accent-hi:  #a6c9ff;
   }
 
   body {
@@ -68,9 +81,7 @@
     color: var(--text);
     line-height: 1;
   }
-
-  /* lvj·y·dle — highlight the "y" like "joy" hidden in the name */
-  .logo .accent { color: var(--mauve); }
+  .logo .accent { color: var(--accent); transition: color 0.3s; }
 
   .tagline {
     font-size: 0.72rem;
@@ -79,6 +90,44 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* ── MODE SWITCHER ── */
+  .mode-switcher {
+    display: flex;
+    gap: 0;
+    margin-top: 1rem;
+    border: 1px solid var(--surface1);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .mode-btn {
+    flex: 1;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 0.5rem 0.25rem;
+    border: none;
+    border-right: 1px solid var(--surface1);
+    background: var(--mantle);
+    color: var(--overlay0);
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+    white-space: nowrap;
+  }
+
+  .mode-btn:last-child { border-right: none; }
+
+  .mode-btn:hover {
+    color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  .mode-btn.active {
+    background: var(--accent-dim);
+    color: var(--accent);
   }
 
   /* ── GAME WRAP ── */
@@ -91,10 +140,7 @@
   }
 
   /* ── ATTEMPT BARS ── */
-  .attempts-row {
-    display: flex;
-    gap: 5px;
-  }
+  .attempts-row { display: flex; gap: 5px; }
 
   .attempt-bar {
     height: 5px;
@@ -104,38 +150,21 @@
     position: relative;
     overflow: hidden;
   }
-
-  .attempt-bar.wrong {
-    background: rgba(243,139,168,0.18);
-  }
+  .attempt-bar.wrong { background: rgba(243,139,168,0.18); }
   .attempt-bar.wrong::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--red);
-    opacity: 0.55;
+    content: ''; position: absolute; inset: 0;
+    background: var(--red); opacity: 0.55;
   }
-
-  .attempt-bar.skipped {
-    background: var(--surface1);
-  }
+  .attempt-bar.skipped { background: var(--surface1); }
   .attempt-bar.skipped::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--overlay0);
-    opacity: 0.4;
+    content: ''; position: absolute; inset: 0;
+    background: var(--overlay0); opacity: 0.4;
   }
-
   .attempt-bar.current::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--mauve);
-    opacity: 0.5;
+    content: ''; position: absolute; inset: 0;
+    background: var(--accent); opacity: 0.5;
     animation: pulse-bar 2s ease-in-out infinite;
   }
-
   @keyframes pulse-bar {
     0%, 100% { opacity: 0.25; }
     50%       { opacity: 0.65; }
@@ -148,362 +177,201 @@
     border-radius: 12px;
     padding: 1.4rem 1.4rem 1.2rem;
   }
-
   .clip-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
+    display: flex; align-items: center;
+    justify-content: space-between; margin-bottom: 1rem;
   }
-
   .clip-label {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--overlay0);
+    font-size: 0.7rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--overlay0);
   }
-
   .clip-duration {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    color: var(--mauve);
-    background: var(--mauve-dim);
-    padding: 2px 8px;
-    border-radius: 4px;
-    border: 1px solid var(--mauve-mid);
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
+    color: var(--accent); background: var(--accent-dim);
+    padding: 2px 8px; border-radius: 4px;
+    border: 1px solid var(--accent-mid);
+    transition: color 0.3s, background 0.3s, border-color 0.3s;
   }
 
   /* Waveform */
   .waveform {
-    display: flex;
-    align-items: center;
-    gap: 2.5px;
-    height: 44px;
-    margin-bottom: 1.1rem;
+    display: flex; align-items: center;
+    gap: 2.5px; height: 44px; margin-bottom: 1.1rem;
   }
-
   .wave-bar {
-    flex: 1;
-    border-radius: 2px;
-    background: var(--surface1);
-    min-height: 3px;
-    transition: background 0.15s;
-    transform-origin: center;
+    flex: 1; border-radius: 2px; background: var(--surface1);
+    min-height: 3px; transition: background 0.15s; transform-origin: center;
   }
-
-  .wave-bar.played { background: var(--mauve); opacity: 0.6; }
-
+  .wave-bar.played { background: var(--accent); opacity: 0.6; }
   .wave-bar.active {
-    background: var(--mauve);
+    background: var(--accent);
     animation: wave-live 0.35s ease-in-out infinite alternate;
   }
-
   @keyframes wave-live {
     from { transform: scaleY(0.55); opacity: 0.75; }
     to   { transform: scaleY(1.08); opacity: 1; }
   }
 
   /* Player row */
-  .player-row {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
+  .player-row { display: flex; align-items: center; gap: 1rem; }
 
   .play-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: var(--mauve);
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: transform 0.12s, background 0.15s;
+    position: relative;
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--accent); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: transform 0.12s, background 0.15s;
   }
-
-  .play-btn:hover  { transform: scale(1.08); background: var(--pink); }
+  .play-btn:hover  { transform: scale(1.08); background: var(--accent-hi); }
   .play-btn:active { transform: scale(0.94); }
-
-  .play-btn svg {
-    fill: var(--crust);
-    width: 18px;
-    height: 18px;
-    display: block;
+  .play-btn svg { fill: var(--crust); width: 18px; height: 18px; display: block; }
+  .play-btn.loading { opacity: 0.6; cursor: wait; background: var(--surface1); }
+  .play-btn.loading svg { opacity: 0; }
+  .play-btn.loading::after {
+    content: ''; position: absolute; inset: 0; margin: auto;
+    width: 20px; height: 20px;
+    border: 2px solid var(--surface2); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin 0.7s linear infinite;
   }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
-  .progress-wrap {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .progress-track {
-    height: 3px;
-    background: var(--surface1);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
+  .progress-wrap { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+  .progress-track { height: 3px; background: var(--surface1); border-radius: 2px; overflow: hidden; }
   .progress-fill {
-    height: 100%;
-    background: var(--mauve);
-    border-radius: 2px;
-    width: 0%;
-    transition: width 0.1s linear;
+    height: 100%; background: var(--accent); border-radius: 2px;
+    width: 0%; transition: width 0.1s linear, background 0.3s;
   }
-
   .time-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.68rem;
-    color: var(--overlay0);
-    font-variant-numeric: tabular-nums;
-    font-family: 'Space Grotesk', sans-serif;
+    display: flex; justify-content: space-between;
+    font-size: 0.68rem; color: var(--overlay0);
+    font-variant-numeric: tabular-nums; font-family: 'Space Grotesk', sans-serif;
   }
 
   /* ── SEARCH ── */
   .search-wrap { position: relative; }
-
   .search-input {
-    width: 100%;
-    background: var(--base);
-    border: 1px solid var(--surface1);
-    border-radius: var(--radius);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.92rem;
-    padding: 0.72rem 1rem;
-    outline: none;
-    transition: border-color 0.2s;
+    width: 100%; background: var(--base); border: 1px solid var(--surface1);
+    border-radius: var(--radius); color: var(--text);
+    font-family: 'Inter', sans-serif; font-size: 0.92rem;
+    padding: 0.72rem 1rem; outline: none; transition: border-color 0.2s;
   }
-
-  .search-input:focus { border-color: var(--mauve); }
+  .search-input:focus { border-color: var(--accent); }
   .search-input::placeholder { color: var(--overlay0); }
 
   .dropdown {
-    position: absolute;
-    top: calc(100% + 5px);
-    left: 0; right: 0;
-    background: var(--mantle);
-    border: 1px solid var(--surface1);
-    border-radius: var(--radius);
-    overflow: hidden;
-    z-index: 10;
-    max-height: 220px;
-    overflow-y: auto;
+    position: absolute; top: calc(100% + 5px); left: 0; right: 0;
+    background: var(--mantle); border: 1px solid var(--surface1);
+    border-radius: var(--radius); overflow: hidden; z-index: 10;
+    max-height: 220px; overflow-y: auto;
   }
-
   .dropdown:empty { display: none; }
-
   .dropdown-item {
-    padding: 0.65rem 1rem;
-    cursor: pointer;
-    font-size: 0.88rem;
-    color: var(--subtext0);
-    transition: background 0.12s, color 0.12s;
+    padding: 0.65rem 1rem; cursor: pointer; font-size: 0.88rem;
+    color: var(--subtext0); transition: background 0.12s, color 0.12s;
     border-bottom: 1px solid var(--surface0);
   }
   .dropdown-item:last-child { border-bottom: none; }
-  .dropdown-item:hover,
-  .dropdown-item.active {
-    background: var(--mauve-dim);
-    color: var(--text);
+  .dropdown-item:hover, .dropdown-item.active {
+    background: var(--accent-dim); color: var(--text);
   }
 
   /* ── ACTIONS ── */
-  .actions {
-    display: flex;
-    gap: 0.6rem;
-  }
-
+  .actions { display: flex; gap: 0.6rem; }
   .btn {
-    flex: 1;
-    padding: 0.7rem;
-    border-radius: var(--radius);
-    border: 1px solid var(--surface1);
-    background: var(--base);
-    color: var(--subtext0);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    flex: 1; padding: 0.7rem; border-radius: var(--radius);
+    border: 1px solid var(--surface1); background: var(--base);
+    color: var(--subtext0); font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.04em;
+    cursor: pointer; transition: border-color 0.15s, color 0.15s, background 0.15s;
   }
-
-  .btn:hover {
-    border-color: var(--mauve);
-    color: var(--mauve);
-    background: var(--mauve-dim);
-  }
-
+  .btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
   .btn-submit {
-    background: var(--mauve);
-    color: var(--crust);
-    border-color: var(--mauve);
-    font-weight: 700;
+    background: var(--accent); color: var(--crust);
+    border-color: var(--accent); font-weight: 700;
+    transition: background 0.3s, border-color 0.3s;
   }
-
-  .btn-submit:hover {
-    background: var(--pink);
-    border-color: var(--pink);
-    color: var(--crust);
-  }
-
-  .btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
+  .btn-submit:hover { background: var(--accent-hi); border-color: var(--accent-hi); color: var(--crust); }
+  .btn:disabled { opacity: 0.3; cursor: not-allowed; }
   .btn:disabled:hover {
-    border-color: var(--surface1);
-    color: var(--subtext0);
-    background: var(--base);
+    border-color: var(--surface1); color: var(--subtext0); background: var(--base);
   }
 
   /* ── HISTORY ── */
-  .history {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
+  .history { display: flex; flex-direction: column; gap: 5px; }
   .history-item {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    padding: 0.6rem 0.9rem;
-    border-radius: var(--radius);
-    font-size: 0.86rem;
-    border: 1px solid transparent;
+    display: flex; align-items: center; gap: 0.7rem;
+    padding: 0.6rem 0.9rem; border-radius: var(--radius);
+    font-size: 0.86rem; border: 1px solid transparent;
     animation: slide-in 0.18s ease;
   }
-
   .history-item.wrong {
-    background: var(--red-dim);
-    border-color: rgba(243,139,168,0.15);
-    color: var(--maroon);
+    background: var(--red-dim); border-color: rgba(243,139,168,0.15); color: var(--maroon);
   }
-
   .history-item.skipped {
-    background: var(--surface0);
-    border-color: var(--surface0);
-    color: var(--overlay0);
-    font-style: italic;
+    background: var(--surface0); border-color: var(--surface0);
+    color: var(--overlay0); font-style: italic;
   }
-
   .history-icon { font-size: 0.78rem; flex-shrink: 0; opacity: 0.8; }
 
   /* ── RESULT ── */
   .result-banner {
-    border-radius: 12px;
-    padding: 1.5rem;
-    text-align: center;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.65rem;
+    border-radius: 12px; padding: 1.5rem; text-align: center;
+    display: none; flex-direction: column; align-items: center; gap: 0.65rem;
     animation: slide-in 0.25s ease;
   }
-
   .result-banner.win {
-    display: flex;
-    background: var(--green-dim);
+    display: flex; background: var(--green-dim);
     border: 1px solid rgba(166,227,161,0.2);
   }
-
   .result-banner.lose {
-    display: flex;
-    background: var(--red-dim);
+    display: flex; background: var(--red-dim);
     border: 1px solid rgba(243,139,168,0.15);
   }
-
   .result-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
+    font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em;
   }
-
   .result-banner.win  .result-title { color: var(--green); }
   .result-banner.lose .result-title { color: var(--red); }
-
   .result-song {
-    font-size: 0.95rem;
-    color: var(--text);
-    font-weight: 500;
-    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem; color: var(--text);
+    font-weight: 500; font-family: 'Space Grotesk', sans-serif;
   }
-
-  .result-meta {
-    font-size: 0.75rem;
-    color: var(--overlay1);
-  }
-
+  .result-meta { font-size: 0.75rem; color: var(--overlay1); }
   .btn-next {
-    margin-top: 0.35rem;
-    padding: 0.6rem 2rem;
-    border-radius: var(--radius);
-    background: transparent;
-    color: var(--mauve);
-    border: 1px solid var(--mauve-mid);
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    font-size: 0.82rem;
-    letter-spacing: 0.04em;
-    cursor: pointer;
+    margin-top: 0.35rem; padding: 0.6rem 2rem; border-radius: var(--radius);
+    background: transparent; color: var(--accent); border: 1px solid var(--accent-mid);
+    font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+    font-size: 0.82rem; letter-spacing: 0.04em; cursor: pointer;
     transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.12s;
   }
-
   .btn-next:hover {
-    background: var(--mauve);
-    color: var(--crust);
-    border-color: var(--mauve);
-    transform: scale(1.03);
+    background: var(--accent); color: var(--crust);
+    border-color: var(--accent); transform: scale(1.03);
   }
   .btn-next:active { transform: scale(0.97); }
 
   /* ── SCORE ── */
   .score-row {
-    display: flex;
-    gap: 0;
-    justify-content: center;
-    border: 1px solid var(--surface0);
-    border-radius: var(--radius);
-    overflow: hidden;
-    background: var(--mantle);
+    display: flex; gap: 0; justify-content: center;
+    border: 1px solid var(--surface0); border-radius: var(--radius);
+    overflow: hidden; background: var(--mantle);
   }
-
   .score-cell {
-    flex: 1;
-    padding: 0.65rem 0.5rem;
-    text-align: center;
+    flex: 1; padding: 0.65rem 0.5rem; text-align: center;
     border-right: 1px solid var(--surface0);
   }
   .score-cell:last-child { border-right: none; }
-
   .score-val {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--mauve);
-    display: block;
-    line-height: 1;
-    margin-bottom: 3px;
+    font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem;
+    font-weight: 700; color: var(--accent); display: block;
+    line-height: 1; margin-bottom: 3px; transition: color 0.3s;
   }
-
   .score-lbl {
-    font-size: 0.65rem;
-    color: var(--overlay0);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.65rem; color: var(--overlay0); letter-spacing: 0.08em;
+    text-transform: uppercase; font-family: 'Space Grotesk', sans-serif;
   }
 
   /* ── MISC ── */
@@ -511,7 +379,6 @@
     from { opacity: 0; transform: translateY(5px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--surface1); border-radius: 3px; }
@@ -519,161 +386,126 @@
   @media (max-width: 420px) {
     .logo { font-size: 1.6rem; }
     .player-card { padding: 1.1rem; }
+    .mode-btn { font-size: 0.62rem; }
   }
-
-  .play-btn { position: relative; }
-
-  .play-btn.loading {
-    opacity: 0.6;
-    cursor: wait;
-    background: var(--surface1);
-  }
-
-  .play-btn.loading svg { opacity: 0; }
-
-  .play-btn.loading::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--surface2);
-    border-top-color: var(--mauve);
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
 
   /* ── VOLUME WIDGET ── */
   .vol-anchor {
-    position: fixed;
-    bottom: 1.75rem;
-    right: 1.75rem;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
+    position: fixed; bottom: 1.75rem; right: 1.75rem;
+    z-index: 100; display: flex; flex-direction: column;
+    align-items: center; gap: 8px;
   }
-
   .vol-slider-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    background: var(--mantle);
-    border: 1px solid var(--surface1);
-    border-radius: 20px;
-    padding: 10px 8px;
-    opacity: 0;
-    transform: translateY(6px) scale(0.95);
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    background: var(--mantle); border: 1px solid var(--surface1);
+    border-radius: 20px; padding: 10px 8px;
+    opacity: 0; transform: translateY(6px) scale(0.95);
+    pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease;
   }
-
   .vol-anchor:hover .vol-slider-wrap,
   .vol-anchor:focus-within .vol-slider-wrap {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: all;
+    opacity: 1; transform: translateY(0) scale(1); pointer-events: all;
   }
-
   .vol-pct {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.62rem;
-    font-weight: 600;
-    color: var(--mauve);
-    letter-spacing: 0.04em;
-    min-width: 28px;
-    text-align: center;
+    font-family: 'Space Grotesk', sans-serif; font-size: 0.62rem;
+    font-weight: 600; color: var(--accent); letter-spacing: 0.04em;
+    min-width: 28px; text-align: center; transition: color 0.3s;
   }
-
   input[type=range].vol-range {
-    -webkit-appearance: none;
-    appearance: none;
-    writing-mode: vertical-lr;
-    direction: rtl;
-    width: 4px;
-    height: 80px;
-    background: transparent;
-    cursor: pointer;
-    outline: none;
+    -webkit-appearance: none; appearance: none;
+    writing-mode: vertical-lr; direction: rtl;
+    width: 4px; height: 80px; background: transparent;
+    cursor: pointer; outline: none;
   }
-
   input[type=range].vol-range::-webkit-slider-runnable-track {
-    width: 4px;
-    background: var(--surface1);
-    border-radius: 2px;
+    width: 4px; background: var(--surface1); border-radius: 2px;
   }
   input[type=range].vol-range::-moz-range-track {
-    width: 4px;
-    background: var(--surface1);
-    border-radius: 2px;
+    width: 4px; background: var(--surface1); border-radius: 2px;
   }
-
   input[type=range].vol-range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--mauve);
-    margin-left: -5px;
+    -webkit-appearance: none; width: 14px; height: 14px;
+    border-radius: 50%; background: var(--accent); margin-left: -5px;
     transition: background 0.15s, transform 0.12s;
   }
   input[type=range].vol-range::-webkit-slider-thumb:hover {
-    background: var(--pink);
-    transform: scale(1.2);
+    background: var(--accent-hi); transform: scale(1.2);
   }
   input[type=range].vol-range::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: none;
-    background: var(--mauve);
-    transition: background 0.15s, transform 0.12s;
+    width: 14px; height: 14px; border-radius: 50%; border: none;
+    background: var(--accent); transition: background 0.15s, transform 0.12s;
   }
-
   .vol-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--base);
-    border: 1px solid var(--surface1);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: border-color 0.15s, background 0.15s, transform 0.12s;
-    flex-shrink: 0;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--base); border: 1px solid var(--surface1);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.15s, background 0.15s, transform 0.12s; flex-shrink: 0;
   }
-
   .vol-btn:hover {
-    border-color: var(--mauve);
-    background: var(--mauve-dim);
-    transform: scale(1.08);
+    border-color: var(--accent); background: var(--accent-dim); transform: scale(1.08);
   }
+  .vol-btn svg { fill: var(--subtext0); width: 16px; height: 16px; display: block; transition: fill 0.15s; }
+  .vol-btn:hover svg { fill: var(--accent); }
 
-  .vol-btn svg {
-    fill: var(--subtext0);
-    width: 16px;
-    height: 16px;
-    display: block;
-    transition: fill 0.15s;
+  /* ── CONTACT WIDGET ── */
+  .contact-anchor {
+    position: fixed; bottom: 1.75rem; left: 1.75rem;
+    z-index: 100;
   }
-  .vol-btn:hover svg { fill: var(--mauve); }
+  .contact-bubble {
+    background: var(--mantle); border: 1px solid var(--surface1);
+    border-radius: 12px; padding: 0.6rem 0.9rem;
+    opacity: 0; transform: translateY(6px) scale(0.95);
+    pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease;
+    white-space: nowrap; margin-bottom: 6px;
+  }
+  .contact-anchor:hover .contact-bubble,
+  .contact-anchor:focus-within .contact-bubble {
+    opacity: 1; transform: translateY(0) scale(1); pointer-events: all;
+  }
+  .contact-bubble p {
+    font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem;
+    color: var(--subtext0); margin-bottom: 6px;
+  }
+  .discord-tag {
+    font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem;
+    font-weight: 600; color: var(--accent); letter-spacing: 0.02em;
+    cursor: pointer; background: none; border: none; padding: 0;
+    display: block; transition: color 0.15s;
+  }
+  .discord-tag:hover { color: var(--accent-hi); }
+  .copy-hint {
+    font-family: 'Space Grotesk', sans-serif; font-size: 0.6rem;
+    color: var(--overlay0); margin-top: 3px; display: block;
+    transition: color 0.2s;
+  }
+  .copy-hint.copied { color: var(--green); }
+  .contact-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--base); border: 1px solid var(--surface1);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.15s, background 0.15s, transform 0.12s;
+  }
+  .contact-btn:hover {
+    border-color: var(--accent); background: var(--accent-dim); transform: scale(1.08);
+  }
+  .contact-btn svg { fill: var(--subtext0); width: 16px; height: 16px; transition: fill 0.15s; }
+  .contact-btn:hover svg { fill: var(--accent); }
 </style>
 </head>
 <body>
 
 <header>
   <div class="logo">lv<span class="accent">jy</span>dle</div>
-  <div class="tagline">lovejoy · endless · guess the song</div>
+  <div class="tagline">endless · guess the song</div>
+  <div class="mode-switcher">
+    <button class="mode-btn active" id="modeBtn-lvjy">lovejoy</button>
+    <button class="mode-btn"        id="modeBtn-both">lovejoy & wilbur soot</button>
+    <button class="mode-btn"        id="modeBtn-wilbur">wilbur soot</button>
+  </div>
 </header>
 
 <div class="game-wrap">
-
   <div class="attempts-row" id="attemptsRow"></div>
 
   <div class="player-card">
@@ -709,14 +541,8 @@
 
   <div id="inputArea">
     <div class="search-wrap" style="margin-bottom:0.6rem;">
-      <input
-        class="search-input"
-        id="searchInput"
-        type="text"
-        placeholder="search for a song…"
-        autocomplete="off"
-        spellcheck="false"
-      />
+      <input class="search-input" id="searchInput" type="text"
+        placeholder="search for a song…" autocomplete="off" spellcheck="false"/>
       <div class="dropdown" id="dropdown"></div>
     </div>
     <div class="actions">
@@ -725,7 +551,7 @@
     </div>
   </div>
 
-  <div class="score-row" id="scoreRow">
+  <div class="score-row">
     <div class="score-cell">
       <span class="score-val" id="scorePlayed">0</span>
       <span class="score-lbl">played</span>
@@ -739,62 +565,77 @@
       <span class="score-lbl">streak</span>
     </div>
   </div>
-
 </div>
 
-<!-- Volume widget -->
+<!-- Volume widget (bottom-right) -->
 <div class="vol-anchor" id="volAnchor">
   <div class="vol-slider-wrap">
     <span class="vol-pct" id="volPct">80%</span>
-    <input type="range" class="vol-range" id="volRange" min="0" max="100" value="80" aria-label="Volume" />
+    <input type="range" class="vol-range" id="volRange" min="0" max="100" value="80" aria-label="Volume"/>
   </div>
   <button class="vol-btn" id="volBtn" aria-label="Volume">
     <svg id="volIcon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
   </button>
 </div>
 
+<!-- Contact widget (bottom-left) -->
+<div class="contact-anchor">
+  <div class="contact-bubble">
+    <p>got ideas or feedback? </p>
+    <p>reach out on discord!</p>
+
+    <button class="discord-tag" id="discordCopy" onclick="copyDiscord()">disekvojny</button>
+    <span class="copy-hint" id="copyHint">click to copy</span>
+  </div>
+  <button class="contact-btn" aria-label="Contact"> 
+    <!-- chat bubble icon -->
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/></svg>
+  </button>
+</div>
+
 <audio id="audioEl" preload="auto"></audio>
 
 <script>
-// ── SONGS ──────────────────────────────────────────────────────────────────
-// Place this file at the ROOT of your music folder, alongside all song
-// folders and full .mp3 files. Structure:
-//   index.html
-//   Baptism/0.1.mp3, 1.mp3, 2.mp3, 5.mp3, 15.mp3
-//   Baptism.mp3
-//   … etc.
+// ── SONG CATALOGUE ─────────────────────────────────────────────────────────
+const CATALOGUE = {
+  lvjy: {
+    folder: 'lvjy',
+    songs: [
+      "Baptism", "Call Me What You Like", "Cause for Concern", "Common Touch",
+      "Concrete", "Consequences", "Deathbox", "Fatal", "Foxholes",
+      "I'll Look Good When I'm Sober", "It's All Futile! It's All Pointless!",
+      "It's Golden Hour Somewhere", "Knee Deep at ATP", "Model Buses", "Monochrome",
+      "Normal People Things", "One Day", "Pay & Display", "Perfect Blue", "Perfume",
+      "Portrait of a Blank Slate", "Scoundrels", "Scum", "Sex Sells", "Taunt",
+      "The Fall", "The Perfect Pair - Spotify Singles", "Warsaw",
+      "You'll Understand When You're Older"
+    ]
+  },
+  wilbur: {
+    folder: 'wilbur',
+    songs: [
+      "10 Week Rule", "Amazon Standing Lamp", "Around the Pomegranate",
+      "Dropshipped Cat Shirt", "Eulogy", "Glass Chalet",
+      "I Don't Think It Will Ever End", "I'm Sorry Boris", "I'm in Love With an E-Girl",
+      "Internet Ruined Me", "Jubilee Line", "La Jolla", "Losing Face",
+      "Maybe I Was Boring", "Melatonin 130", "Oh Distant You", "Saline Solution",
+      "Since I Saw Vienna", "Soft Boy", "The Median",
+      "Trying Not To Think About It", "Your New Boyfriend", "Your Sister Was Right"
+    ]
+  }
+};
 
-const SONGS = [
-  "Baptism",
-  "Call Me What You Like",
-  "Cause for Concern",
-  "Common Touch",
-  "Concrete",
-  "Consequences",
-  "Deathbox",
-  "Fatal",
-  "Foxholes",
-  "I'll Look Good When I'm Sober",
-  "It's All Futile! It's All Pointless!",
-  "It's Golden Hour Somewhere",
-  "Knee Deep at ATP",
-  "Model Buses",
-  "Monochrome",
-  "Normal People Things",
-  "One Day",
-  "Pay & Display",
-  "Perfect Blue",
-  "Perfume",
-  "Portrait of a Blank Slate",
-  "Scoundrels",
-  "Scum",
-  "Sex Sells",
-  "Taunt",
-  "The Fall",
-  "The Perfect Pair - Spotify Singles",
-  "Warsaw",
-  "You'll Understand When You're Older"
-];
+// "both" mode = entries tagged with their folder
+// { song, folder }
+function buildPool(mode) {
+  if (mode === 'lvjy')   return CATALOGUE.lvjy.songs.map(s => ({ song: s, folder: 'lvjy' }));
+  if (mode === 'wilbur') return CATALOGUE.wilbur.songs.map(s => ({ song: s, folder: 'wilbur' }));
+  // both
+  return [
+    ...CATALOGUE.lvjy.songs.map(s => ({ song: s, folder: 'lvjy' })),
+    ...CATALOGUE.wilbur.songs.map(s => ({ song: s, folder: 'wilbur' })),
+  ];
+}
 
 const CLIPS = [
   { file: "0.1.mp3", label: "0.1s" },
@@ -803,12 +644,13 @@ const CLIPS = [
   { file: "5.mp3",   label: "5s"   },
   { file: "15.mp3",  label: "15s"  },
 ];
-
 const MAX_ATTEMPTS = CLIPS.length;
 
-// ── STATE ─────────────────────────────────────────────────────────────────
+// ── STATE ──────────────────────────────────────────────────────────────────
 const state = {
-  song: null,
+  mode: 'lvjy',       // 'lvjy' | 'wilbur' | 'both'
+  pool: [],           // current [{song, folder}]
+  entry: null,        // current {song, folder}
   attempt: 0,
   guesses: [],
   done: false,
@@ -819,15 +661,13 @@ const state = {
   isPlaying: false,
 };
 
-// ── AUDIO ─────────────────────────────────────────────────────────────────
+// ── AUDIO ──────────────────────────────────────────────────────────────────
 const audio = document.getElementById('audioEl');
 
-function loadClip(song, clipFile) {
-  audio.src = `songs/${encodeURIComponent(song)}/${clipFile}`;
+function loadClip(folder, song, clipFile) {
+  audio.src = `songs/${folder}/${encodeURIComponent(song)}/${clipFile}`;
   audio.load();
 }
-
-
 
 audio.addEventListener('ended', stopPlayback);
 
@@ -852,21 +692,13 @@ function fmtTime(s) {
 
 function playClip() {
   if (state.isPlaying) { stopPlayback(); return; }
-
   const doPlay = () => {
     audio.currentTime = 0;
-    audio.play().then(() => {
-      state.isPlaying = true;
-      setPlayIcon(true);
-    }).catch(() => {});
+    audio.play().then(() => { state.isPlaying = true; setPlayIcon(true); }).catch(() => {});
   };
-
-  // readyState >= 2 means we have enough data to start (HAVE_CURRENT_DATA)
-  // This is true almost immediately for local files
   if (audio.readyState >= 2) {
     doPlay();
   } else {
-    // Only show loading state if truly waiting (slow network)
     setPlayBtnLoading(true);
     const onReady = () => {
       audio.removeEventListener('canplay', onReady);
@@ -878,8 +710,7 @@ function playClip() {
 }
 
 function setPlayBtnLoading(on) {
-  const btn = document.getElementById('playBtn');
-  btn.classList.toggle('loading', on);
+  document.getElementById('playBtn').classList.toggle('loading', on);
 }
 
 function stopPlayback() {
@@ -897,9 +728,8 @@ function setPlayIcon(playing) {
     : '<path d="M8 5v14l11-7z"/>';
 }
 
-// ── WAVEFORM ──────────────────────────────────────────────────────────────
+// ── WAVEFORM ───────────────────────────────────────────────────────────────
 const NUM_BARS = 42;
-// Pre-seeded heights so they look the same each build
 const BAR_HEIGHTS = Array.from({ length: NUM_BARS }, (_, i) =>
   Math.round(8 + Math.abs(Math.sin(i * 0.72 + 0.9) * 28) + Math.abs(Math.cos(i * 0.41) * 10))
 );
@@ -929,7 +759,7 @@ function clearWaveActive() {
   document.querySelectorAll('.wave-bar').forEach(b => b.classList.remove('active', 'played'));
 }
 
-// ── ATTEMPT BARS ──────────────────────────────────────────────────────────
+// ── ATTEMPT BARS ───────────────────────────────────────────────────────────
 function renderAttemptBars() {
   const row = document.getElementById('attemptsRow');
   row.innerHTML = '';
@@ -943,7 +773,7 @@ function renderAttemptBars() {
   }
 }
 
-// ── HISTORY ───────────────────────────────────────────────────────────────
+// ── HISTORY ────────────────────────────────────────────────────────────────
 function renderHistory() {
   const el = document.getElementById('history');
   el.innerHTML = '';
@@ -957,20 +787,29 @@ function renderHistory() {
   });
 }
 
-// ── DROPDOWN ──────────────────────────────────────────────────────────────
+// ── DROPDOWN ───────────────────────────────────────────────────────────────
 let selectedSong = null;
 let ddActive = -1;
+
+// The dropdown shows song names only (deduped if both mode has same name — unlikely here)
+function getSongList() {
+  // unique song names from the current pool, preserving order
+  const seen = new Set();
+  return state.pool.filter(e => {
+    if (seen.has(e.song)) return false;
+    seen.add(e.song);
+    return true;
+  }).map(e => e.song);
+}
 
 document.getElementById('searchInput').addEventListener('focus', () => {
   showDropdown(document.getElementById('searchInput').value.trim());
 });
-
 document.getElementById('searchInput').addEventListener('input', e => {
   selectedSong = null;
   document.getElementById('btnSubmit').disabled = true;
   showDropdown(e.target.value.trim());
 });
-
 document.getElementById('searchInput').addEventListener('keydown', e => {
   const items = document.querySelectorAll('.dropdown-item');
   if (e.key === 'ArrowDown') {
@@ -991,16 +830,15 @@ document.getElementById('searchInput').addEventListener('keydown', e => {
 
 function showDropdown(q) {
   const dd = document.getElementById('dropdown');
-  const hits = q
-    ? SONGS.filter(s => s.toLowerCase().includes(q.toLowerCase()))
-    : SONGS.slice();
+  const list = getSongList();
+  const hits = q ? list.filter(s => s.toLowerCase().includes(q.toLowerCase())) : list.slice();
   if (!hits.length) { dd.innerHTML = ''; ddActive = -1; return; }
   dd.innerHTML = hits.map(s =>
     `<div class="dropdown-item" data-song="${escAttr(s)}">${q ? highlight(s, q) : escHtml(s)}</div>`
   ).join('');
   ddActive = -1;
   dd.querySelectorAll('.dropdown-item').forEach(el => {
-    el.addEventListener('mousedown', e => { e.preventDefault(); selectSong(el.dataset.song); });
+    el.addEventListener('mousedown', ev => { ev.preventDefault(); selectSong(el.dataset.song); });
   });
 }
 
@@ -1008,7 +846,7 @@ function highlight(text, q) {
   const i = text.toLowerCase().indexOf(q.toLowerCase());
   if (i < 0) return escHtml(text);
   return escHtml(text.slice(0, i))
-    + `<span style="color:var(--mauve);font-weight:600">${escHtml(text.slice(i, i + q.length))}</span>`
+    + `<span style="color:var(--accent);font-weight:600">${escHtml(text.slice(i, i + q.length))}</span>`
     + escHtml(text.slice(i + q.length));
 }
 
@@ -1031,18 +869,41 @@ document.addEventListener('mousedown', e => {
 function escHtml(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
-function escAttr(s) {
-  return escHtml(s).replace(/"/g,'&quot;');
+function escAttr(s) { return escHtml(s).replace(/"/g,'&quot;'); }
+
+// ── MODE SWITCHING ─────────────────────────────────────────────────────────
+function setMode(mode) {
+  if (state.mode === mode) return;
+  state.mode    = mode;
+  state.pool    = buildPool(mode);
+  state.streak  = 0; // reset streak on mode change
+
+  // body class for accent colour
+  document.body.classList.remove('mode-wilbur', 'mode-both');
+  if (mode === 'wilbur') document.body.classList.add('mode-wilbur');
+  if (mode === 'both')   document.body.classList.add('mode-wilbur'); // blue for mixed too
+
+  // update button states
+  ['lvjy', 'wilbur', 'both'].forEach(m => {
+    document.getElementById(`modeBtn-${m}`).classList.toggle('active', m === mode);
+  });
+
+  updateScore();
+  startGame();
 }
 
-// ── GAME LOGIC ────────────────────────────────────────────────────────────
-function pickSong() {
-  return SONGS[Math.floor(Math.random() * SONGS.length)];
+['lvjy', 'wilbur', 'both'].forEach(m => {
+  document.getElementById(`modeBtn-${m}`).addEventListener('click', () => setMode(m));
+});
+
+// ── GAME LOGIC ─────────────────────────────────────────────────────────────
+function pickEntry() {
+  return state.pool[Math.floor(Math.random() * state.pool.length)];
 }
 
 function startGame() {
   stopPlayback();
-  state.song    = pickSong();
+  state.entry   = pickEntry();
   state.attempt = 0;
   state.guesses = [];
   state.done    = false;
@@ -1060,7 +921,7 @@ function startGame() {
   document.getElementById('clipLabel').textContent = CLIPS[0].label;
 
   buildWaveform();
-  loadClip(state.song, CLIPS[0].file);
+  loadClip(state.entry.folder, state.entry.song, CLIPS[0].file);
   renderAttemptBars();
   renderHistory();
   updateScore();
@@ -1070,15 +931,11 @@ function submitGuess() {
   if (!selectedSong || state.done) return;
   stopPlayback();
 
-  if (selectedSong === state.song) {
+  if (selectedSong === state.entry.song) {
     state.guesses.push({ type: 'correct', value: selectedSong });
     state.done = state.won = true;
-    state.played++;
-    state.won_count++;
-    state.streak++;
-    renderAttemptBars();
-    renderHistory();
-    showResult(true);
+    state.played++; state.won_count++; state.streak++;
+    renderAttemptBars(); renderHistory(); showResult(true);
   } else {
     state.guesses.push({ type: 'wrong', value: selectedSong });
     advance();
@@ -1099,10 +956,9 @@ function advance() {
   if (state.attempt >= MAX_ATTEMPTS) {
     state.done = true; state.won = false;
     state.played++; state.streak = 0;
-    renderAttemptBars(); renderHistory();
-    showResult(false);
+    renderAttemptBars(); renderHistory(); showResult(false);
   } else {
-    loadClip(state.song, CLIPS[state.attempt].file);
+    loadClip(state.entry.folder, state.entry.song, CLIPS[state.attempt].file);
     document.getElementById('clipLabel').textContent = CLIPS[state.attempt].label;
     renderAttemptBars(); renderHistory();
   }
@@ -1115,14 +971,12 @@ function showResult(won) {
   document.getElementById('inputArea').style.display = 'none';
   const banner = document.getElementById('resultBanner');
   banner.className = 'result-banner ' + (won ? 'win' : 'lose');
-
   document.getElementById('resultTitle').textContent = won
-    ? (state.guesses.length === 1 ? 'first try!' : 'got it!')
-    : 'nice try';
-  document.getElementById('resultSong').textContent = state.song;
+    ? (state.guesses.length === 1 ? 'first try!' : 'got it!') : 'nice try';
+  document.getElementById('resultSong').textContent = state.entry.song;
   document.getElementById('resultMeta').textContent = won
     ? `in ${state.guesses.length} of ${MAX_ATTEMPTS} ${state.guesses.length === 1 ? 'guess' : 'guesses'}`
-    : `the answer was above`;
+    : 'the answer was above';
 }
 
 function updateScore() {
@@ -1131,18 +985,17 @@ function updateScore() {
   document.getElementById('scoreStreak').textContent = state.streak;
 }
 
-// ── BINDINGS ──────────────────────────────────────────────────────────────
+// ── BINDINGS ───────────────────────────────────────────────────────────────
 document.getElementById('playBtn').addEventListener('click', playClip);
 document.getElementById('btnSubmit').addEventListener('click', submitGuess);
 document.getElementById('btnSkip').addEventListener('click', skipAttempt);
 document.getElementById('btnNext').addEventListener('click', startGame);
 
-// ── VOLUME ────────────────────────────────────────────────────────────────
+// ── VOLUME ─────────────────────────────────────────────────────────────────
 const volRange = document.getElementById('volRange');
 const volPct   = document.getElementById('volPct');
 const volIcon  = document.getElementById('volIcon');
-
-audio.volume = 0.8;
+audio.volume   = 0.8;
 
 const VOL_ICONS = {
   mute: '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>',
@@ -1151,9 +1004,9 @@ const VOL_ICONS = {
 };
 
 function updateVolIcon(v) {
-  if (v === 0)      volIcon.innerHTML = VOL_ICONS.mute;
-  else if (v < 0.5) volIcon.innerHTML = VOL_ICONS.low;
-  else              volIcon.innerHTML = VOL_ICONS.high;
+  if (v === 0)       volIcon.innerHTML = VOL_ICONS.mute;
+  else if (v < 0.5)  volIcon.innerHTML = VOL_ICONS.low;
+  else               volIcon.innerHTML = VOL_ICONS.high;
 }
 
 volRange.addEventListener('input', () => {
@@ -1163,14 +1016,11 @@ volRange.addEventListener('input', () => {
   updateVolIcon(v);
 });
 
-// clicking the button toggles mute
 let lastVol = 0.8;
 document.getElementById('volBtn').addEventListener('click', () => {
   if (audio.volume > 0) {
     lastVol = audio.volume;
-    audio.volume = 0;
-    volRange.value = 0;
-    volPct.textContent = '0%';
+    audio.volume = 0; volRange.value = 0; volPct.textContent = '0%';
   } else {
     audio.volume = lastVol;
     volRange.value = Math.round(lastVol * 100);
@@ -1179,7 +1029,30 @@ document.getElementById('volBtn').addEventListener('click', () => {
   updateVolIcon(audio.volume);
 });
 
-// ── BOOT ──────────────────────────────────────────────────────────────────
+// ── CONTACT ────────────────────────────────────────────────────────────────
+function copyDiscord() {
+  navigator.clipboard.writeText('disekvojny').then(() => {
+    const hint = document.getElementById('copyHint');
+    hint.textContent = 'copied!';
+    hint.classList.add('copied');
+    setTimeout(() => {
+      hint.textContent = 'click to copy discord';
+      hint.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    // fallback for older browsers
+    const hint = document.getElementById('copyHint');
+    hint.textContent = 'disekvojny';
+    hint.classList.add('copied');
+    setTimeout(() => {
+      hint.textContent = 'click to copy discord';
+      hint.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// ── BOOT ───────────────────────────────────────────────────────────────────
+state.pool = buildPool('lvjy');
 startGame();
 </script>
 </body>
